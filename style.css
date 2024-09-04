@@ -1,0 +1,127 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: bisque;
+}
+
+.container {
+  max-width: 800px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 45px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.posts {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+.post-input__title,
+.post-output__title {
+  text-transform: uppercase;
+  margin-bottom: 100px;
+}
+
+.post-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-input__input,
+.post-input__text {
+  background-color: transparent;
+  border: 1px solid #2b2b2b;
+  color: #2b2b2b;
+  font-family: inherit;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  display: block;
+  width: 100%;
+  transition: background-color 0.4s linear;
+}
+
+.post-input__input {
+  margin-bottom: 30px;
+}
+
+.post-input__text {
+  min-height: 150px;
+  resize: vertical;
+  margin-bottom: 30px;
+}
+
+.post-input__input:focus,
+.post-input__text:focus {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid transparent;
+}
+
+.post-input__public-btn {
+  cursor: pointer;
+  border: 1px solid #2b2b2b;
+  background-color: transparent;
+  font-family: inherit;
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 20px;
+  transition: color 0.3s linear, background-color 0.3s linear;
+  margin-bottom: 20px;
+}
+
+.post-input__public-btn:hover {
+  color: #fff;
+  background-color: #2b2b2b;
+}
+
+.post-input__public-btn:focus {
+  outline: none;
+}
+
+.posts__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.post {
+  padding: 30px;
+  border: 1px solid #2b2b2b;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.post__title {
+  text-transform: uppercase;
+}
+
+.col {
+  width: calc(50% - 50px);
+}
+
+.post__date {
+  color: #00b2fe;
+}
+
+.post-input__error-popup {
+  color: red;
+}

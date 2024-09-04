@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="title">Блог</h1>
+
+    <section class="posts">
+      <div class="row posts__inner container">
+          <div class="col post-input">
+            <h2 class="post-input__title">Новый пост</h2>
+            <input placeholder="Заголовок" class="js-title-input post-input__input" type="text" />
+            <textarea placeholder="Текст заголовка" class="js-text-input post-input__text"></textarea>
+            <button class="js-public-btn post-input__public-btn">Опубликовать</button>
+            <p class="js-error-popup post-input__error-popup"></p>
+          </div>
+          <div class="col post-output">
+            <h2 class="post-output__title">Лента</h2>
+
+            <ul class="js-posts post-output__posts">Лента пустая...</ul>
+          </div>
+        </div>
+    </section>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
