@@ -37,7 +37,6 @@ function getPostFromUser() {
 
 function addPost({title, text}) {
   posts.push({
-    timeAgo: getTimeAgo(),
     date: getCurrentDate(),
     title: title,
     text: text,
