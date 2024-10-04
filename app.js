@@ -1,5 +1,10 @@
 const posts = [];
 
+const TITLE_VALIDATION_LIMIT = 100;
+const TEXT_VALIDATION_LIMIT = 200;
+
+const textLeftMessage = document.querySelector('.js-popup-text-left');
+
 const postTitleInputElement = document.querySelector('.js-title-input');
 const postTextInputElement = document.querySelector('.js-text-input');
 const publicBtnElement = document.querySelector('.js-public-btn');
@@ -9,11 +14,15 @@ const errorPopupElement = document.querySelector('.js-error-popup');
 let allowToPublic = true;
 
 publicBtnElement.addEventListener('click', function () {
-  const postFromUser = getPostFromUser();
+  if (postTitleInputElement.value && postTextInputElement.value) {
+    const postFromUser = getPostFromUser();
 
-  addPost(postFromUser);
+    addPost(postFromUser);
+    renderPosts();
+  }
 
-  renderPosts();
+  checkEmptyTitleValue();
+  checkEmptyTextValue();
 });
 
 function getPostFromUser() {
@@ -28,6 +37,7 @@ function getPostFromUser() {
 
 function addPost({title, text}) {
   posts.push({
+    timeAgo: getTimeAgo(),
     date: getCurrentDate(),
     title: title,
     text: text,
@@ -60,7 +70,9 @@ function getCurrentDate() {
 
   const day = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
   const month =
-    today.getMonth() + 1 < 10 ? '0' + parseInt(today.getMonth() + 1) : today.getMonth() + 1;
+    today.getMonth() + 1 < 10
+      ? '0' + parseInt(today.getMonth() + 1)
+      : today.getMonth() + 1;
   const year = today.getFullYear();
 
   const hours = today.getHours();
@@ -69,43 +81,51 @@ function getCurrentDate() {
   return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 
-
 postTitleInputElement.addEventListener('input', function () {
-  checkValidInput();
-})
-
-postTextInputElement.addEventListener('input', function () {
-  checkValidText();
+  validation();
+  titleLengthValidation();
+  checkEmptyTitleValue();
 });
 
+postTitleInputElement.addEventListener('focus', titleLengthValidation);
+postTitleInputElement.addEventListener('blur', clearTextLeft);
 
-function checkValidInput() {
-  if (postTitleInputElement.value.length > 100) {
-    errorPopupElement.innerHTML = 'Заголовок больше 100 символов';
+postTextInputElement.addEventListener('input', function () {
+  validation();
+  textLengthValidation();
+  checkEmptyTextValue();
+});
+
+postTextInputElement.addEventListener('focus', textLengthValidation);
+postTextInputElement.addEventListener('blur', clearTextLeft);
+
+function validation() {
+  const titleLength = postTitleInputElement.value.length;
+  const textLength = postTextInputElement.value.length;
+
+  if (titleLength > TITLE_VALIDATION_LIMIT) {
+    errorPopupElement.innerHTML = `Заголовок больше ${TITLE_VALIDATION_LIMIT} символов`;
+
     allowToPublic = false;
     forbidenBtn();
-  } else {
-    errorPopupElement.innerHTML = '';
-    allowToPublic = true;
-    forbidenBtn();
+    return;
   }
-}
 
-function checkValidText() {
-  if (postTextInputElement.value.length > 200) {
-    errorPopupElement.innerHTML = 'Пост больше 200 символов';
+  if (textLength > TEXT_VALIDATION_LIMIT) {
+    errorPopupElement.innerHTML = `Текст больше ${TEXT_VALIDATION_LIMIT} символов`;
+
     allowToPublic = false;
     forbidenBtn();
-  } else {
-    errorPopupElement.innerHTML = '';
-    allowToPublic = true;
-    forbidenBtn();
+    return;
   }
+
+  errorPopupElement.innerHTML = '';
+  allowToPublic = true;
+  forbidenBtn();
 }
 
 function forbidenBtn() {
   if (allowToPublic === false) {
-
     publicBtnElement.disabled = true;
     publicBtnElement.style.cursor = 'not-allowed';
   } else {
@@ -113,3 +133,45 @@ function forbidenBtn() {
     publicBtnElement.style.cursor = 'pointer';
   }
 }
+
+function titleLengthValidation() {
+  const titleLength = postTitleInputElement.value.length;
+  let currentTitleLength = postTitleInputElement.value.length;
+  if (titleLength <= TITLE_VALIDATION_LIMIT) {
+    textLeftMessage.innerHTML = `Осталось ввести: ${
+      TITLE_VALIDATION_LIMIT - currentTitleLength
+    }`;
+  }
+}
+
+function textLengthValidation() {
+  const textLength = postTextInputElement.value.length;
+  let currentTextLength = postTextInputElement.value.length;
+  if (textLength <= TEXT_VALIDATION_LIMIT) {
+    textLeftMessage.innerHTML = `Осталось ввести: ${
+      TEXT_VALIDATION_LIMIT - currentTextLength
+    }`;
+  }
+}
+
+function checkEmptyTitleValue() {
+  if (!postTitleInputElement.value) {
+    postTitleInputElement.style.borderColor = 'red';
+  } else {
+    postTitleInputElement.style.borderColor = '#2b2b2b';
+  }
+}
+
+function checkEmptyTextValue() {
+  if (!postTextInputElement.value) {
+    postTextInputElement.style.borderColor = 'red';
+  } else {
+    postTextInputElement.style.borderColor = '#2b2b2b';
+  }
+}
+
+function clearTextLeft() {
+  textLeftMessage.innerHTML = '';
+}
+
+

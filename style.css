@@ -26,12 +26,18 @@ ul {
   text-transform: uppercase;
   font-size: 45px;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  display: none;
+  font-size: 45px;
+  color: rgb(45, 45, 194);
 }
 
 .posts {
-  padding-top: 200px;
-  padding-bottom: 200px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .post-input__title,
@@ -124,4 +130,41 @@ ul {
 
 .post-input__error-popup {
   color: red;
+}
+
+.post-input__text-left-popup {
+  color: lightblue;
+}
+
+@media (max-width: 998px) {
+  body {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .subtitle {
+    display: block;
+  }
+
+  .title {
+    display: none;
+  }
+  .posts {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+    .subtitle {
+      font-size: 30px;
+    }
+}
+
+@media (max-width: 550px) {
+    .subtitle {
+      font-size: 14px;
+    }
 }
